@@ -2,7 +2,6 @@ package com.lagou.test;
 
 import com.lagou.dao.IUserDAO;
 import com.lagou.io.Resources;
-import com.lagou.pojo.User;
 import com.lagou.sqlSession.SqlSession;
 import com.lagou.sqlSession.SqlSessionFactory;
 import com.lagou.sqlSession.SqlSessionFactoryBuilder;
@@ -35,11 +34,11 @@ public class IPersistenceTest {
             System.out.println(user);
         }*/
         //根据条件查询
-        User user = new User();
+        /*User user = new User();
         user.setId(1);
         user.setUsername("lisi");
         User user5 = userDAO.findByCondition(user);
-        System.out.println(user5);
+        System.out.println(user5);*/
         //批量新增
         /*List<User> users = new ArrayList<>();
         User user1 = new User();

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9d21b01-419d-460f-b8db-556fcc78148f" name="Default Changelist" comment="">
+    <list default="true" id="b9d21b01-419d-460f-b8db-556fcc78148f" name="Default Changelist" comment="优化新增，删除调用">
+      <change beforePath="$PROJECT_DIR$/../IPersistence/src/main/java/com/lagou/sqlSession/DefaultSqlSesion.java" beforeDir="false" afterPath="$PROJECT_DIR$/../IPersistence/src/main/java/com/lagou/sqlSession/DefaultSqlSesion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IPersistence/src/main/java/com/lagou/sqlSession/Executor.java" beforeDir="false" afterPath="$PROJECT_DIR$/../IPersistence/src/main/java/com/lagou/sqlSession/Executor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../IPersistence/src/main/java/com/lagou/sqlSession/SqlSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/../IPersistence/src/main/java/com/lagou/sqlSession/SqlSession.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/lagou/test/IPersistenceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/lagou/test/IPersistenceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,6 +120,7 @@
       <workItem from="1586162542925" duration="698000" />
       <workItem from="1586335953541" duration="36993000" />
       <workItem from="1586422533493" duration="779000" />
+      <workItem from="1586424166974" duration="1824000" />
     </task>
     <task id="LOCAL-00001" summary="修改配置信息">
       <created>1586423248840</created>
@@ -132,7 +137,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="修改配置信息" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改配置信息" />
+    <MESSAGE value="优化新增，删除调用" />
+    <option name="LAST_COMMIT_MESSAGE" value="优化新增，删除调用" />
   </component>
   <component name="WindowStateProjectService">
     <state x="552" y="171" key="#Inspections" timestamp="1585730798034">
@@ -147,10 +153,10 @@
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
     <state x="862" y="109" key="#com.intellij.codeInsight.editorActions.RestoreReferencesDialog/0.0.1920.1019@0.0.1920.1019" timestamp="1585588950206" />
-    <state x="717" y="215" key="#com.intellij.ide.util.MemberChooser" timestamp="1586351784149">
+    <state x="717" y="215" key="#com.intellij.ide.util.MemberChooser" timestamp="1586425824896">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
-    <state x="717" y="215" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1019@0.0.1920.1019" timestamp="1586351784149" />
+    <state x="717" y="215" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1019@0.0.1920.1019" timestamp="1586425824896" />
     <state x="375" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1586351458084">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
@@ -159,10 +165,10 @@
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
     <state x="1135" y="317" width="711" height="586" key="#xdebugger.evaluate/0.0.1920.1019@0.0.1920.1019" timestamp="1586420975984" />
-    <state x="511" y="107" key="CommitChangelistDialog2" timestamp="1586423248185">
+    <state x="511" y="107" key="CommitChangelistDialog2" timestamp="1586425998424">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
-    <state x="511" y="107" key="CommitChangelistDialog2/0.0.1920.1019@0.0.1920.1019" timestamp="1586423248185" />
+    <state x="511" y="107" key="CommitChangelistDialog2/0.0.1920.1019@0.0.1920.1019" timestamp="1586425998424" />
     <state width="538" height="466" key="DebuggerActiveHint" timestamp="1586421396943">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
@@ -171,22 +177,22 @@
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
     <state x="705" y="249" key="FileChooserDialogImpl/0.0.1920.1019@0.0.1920.1019" timestamp="1586413241431" />
-    <state width="1877" height="171" key="GridCell.Tab.0.bottom" timestamp="1586421520706">
+    <state width="1877" height="171" key="GridCell.Tab.0.bottom" timestamp="1586425695913">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="171" key="GridCell.Tab.0.bottom/0.0.1920.1019@0.0.1920.1019" timestamp="1586421520706" />
-    <state width="1877" height="171" key="GridCell.Tab.0.center" timestamp="1586421520706">
+    <state width="1877" height="171" key="GridCell.Tab.0.bottom/0.0.1920.1019@0.0.1920.1019" timestamp="1586425695913" />
+    <state width="1877" height="171" key="GridCell.Tab.0.center" timestamp="1586425695913">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="171" key="GridCell.Tab.0.center/0.0.1920.1019@0.0.1920.1019" timestamp="1586421520706" />
-    <state width="1877" height="171" key="GridCell.Tab.0.left" timestamp="1586421520706">
+    <state width="1877" height="171" key="GridCell.Tab.0.center/0.0.1920.1019@0.0.1920.1019" timestamp="1586425695913" />
+    <state width="1877" height="171" key="GridCell.Tab.0.left" timestamp="1586425695913">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="171" key="GridCell.Tab.0.left/0.0.1920.1019@0.0.1920.1019" timestamp="1586421520706" />
-    <state width="1877" height="171" key="GridCell.Tab.0.right" timestamp="1586421520706">
+    <state width="1877" height="171" key="GridCell.Tab.0.left/0.0.1920.1019@0.0.1920.1019" timestamp="1586425695913" />
+    <state width="1877" height="171" key="GridCell.Tab.0.right" timestamp="1586425695913">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
-    <state width="1877" height="171" key="GridCell.Tab.0.right/0.0.1920.1019@0.0.1920.1019" timestamp="1586421520706" />
+    <state width="1877" height="171" key="GridCell.Tab.0.right/0.0.1920.1019@0.0.1920.1019" timestamp="1586425695913" />
     <state width="1877" height="230" key="GridCell.Tab.1.bottom" timestamp="1586421520702">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
@@ -211,10 +217,10 @@
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
     <state x="552" y="245" key="Vcs.Push.Dialog.v2/0.0.1920.1019@0.0.1920.1019" timestamp="1586423252735" />
-    <state x="652" y="337" key="com.intellij.ide.util.TipDialog" timestamp="1586422539659">
+    <state x="652" y="337" key="com.intellij.ide.util.TipDialog" timestamp="1586424178125">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
-    <state x="652" y="337" key="com.intellij.ide.util.TipDialog/0.0.1920.1019@0.0.1920.1019" timestamp="1586422539659" />
+    <state x="652" y="337" key="com.intellij.ide.util.TipDialog/0.0.1920.1019@0.0.1920.1019" timestamp="1586424178125" />
     <state x="754" y="427" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586423144763">
       <screen x="0" y="0" width="1920" height="1019" />
     </state>
@@ -244,10 +250,13 @@
           <line>594</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/../IPersistence/src/main/java/com/lagou/sqlSession/SimpleExecutor.java</url>
-          <line>45</line>
-          <option name="timeStamp" value="87" />
+          <line>157</line>
+          <properties class="com.lagou.sqlSession.SimpleExecutor" method="getBoundSql">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="88" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

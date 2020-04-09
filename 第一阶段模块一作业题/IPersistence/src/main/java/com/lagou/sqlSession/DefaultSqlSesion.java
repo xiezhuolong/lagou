@@ -35,34 +35,24 @@ public class DefaultSqlSesion implements SqlSession {
 
     @Override
     public Boolean insertOne(String statementId, Object... params) throws Exception {
-        SimpleExecutor simpleExecutor = new SimpleExecutor();
-        MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementId);
-        Boolean result = simpleExecutor.noQuery(configuration, mappedStatement, params);
-        return result;
+        return update(statementId, params);
     }
 
     @Override
     public Boolean insertList(String statementId, Object... params) throws Exception {
-        SimpleExecutor simpleExecutor = new SimpleExecutor();
-        MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementId);
-        Boolean result = simpleExecutor.noQuery(configuration, mappedStatement, params);
-        return result;
+        return update(statementId, params);
     }
 
     @Override
-    public Boolean updateOne(String statementId, Object... params) throws Exception {
+    public Boolean update(String statementId, Object... params) throws Exception {
         SimpleExecutor simpleExecutor = new SimpleExecutor();
         MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementId);
-        Boolean result = simpleExecutor.noQuery(configuration, mappedStatement, params);
-        return result;
+        return simpleExecutor.noQuery(configuration, mappedStatement, params);
     }
 
     @Override
     public Boolean deleteList(String statementId, Object... params) throws Exception {
-        SimpleExecutor simpleExecutor = new SimpleExecutor();
-        MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementId);
-        Boolean result = simpleExecutor.noQuery(configuration, mappedStatement, Arrays.asList(params[0].toString().split(",")));
-        return result;
+        return update(statementId, Arrays.asList(params[0].toString().split(",")));
     }
 
     @Override
@@ -88,24 +78,24 @@ public class DefaultSqlSesion implements SqlSession {
                 // 获取方法对应sql语句，做类型判断，确定调用哪个方法，以及处理
                 MappedStatement mappedStatement = configuration.getMappedStatementMap().get(statementId);
                 String sqlType = mappedStatement.getSql().substring(0, 6);
-                if (sqlType.equals("select")) {
-                    // 判断是否进行了 泛型类型参数化
-                    if (genericReturnType instanceof ParameterizedType) {
-                        List<Object> objects = selectList(statementId, args);
-                        return objects;
-                    }
-                    return selectOne(statementId, args);
-                } else if (sqlType.equals("insert")) {
-                    // 判断是否进行了 泛型类型参数化
-                    if (genericParameterType instanceof ParameterizedType) {
-                        Boolean aBoolean = insertList(statementId, args);
-                        return aBoolean;
-                    }
-                    return insertOne(statementId, args);
-                } else if (sqlType.equals("update")) {
-                    return updateOne(statementId, args);
-                } else if (sqlType.equals("delete")) {
-                    return deleteList(statementId, args);
+                switch (sqlType) {
+                    case "select":
+                        // 判断是否进行了 泛型类型参数化
+                        if (genericReturnType instanceof ParameterizedType) {
+                            List<Object> objects = selectList(statementId, args);
+                            return objects;
+                        }
+                        return selectOne(statementId, args);
+                    case "insert":
+                        // 判断是否进行了 泛型类型参数化
+                        if (genericParameterType instanceof ParameterizedType) {
+                            return insertList(statementId, args);
+                        }
+                        return insertOne(statementId, args);
+                    case "update":
+                        return update(statementId, args);
+                    case "delete":
+                        return deleteList(statementId, args);
                 }
                 //目前不支持更高级的语句
                 throw new Exception("目前仅支持select|insert|update|delete开头的SQL语句，需要额外支持请联系作者");

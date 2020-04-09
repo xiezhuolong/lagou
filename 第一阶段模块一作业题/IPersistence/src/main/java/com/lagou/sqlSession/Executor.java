@@ -3,11 +3,10 @@ package com.lagou.sqlSession;
 import com.lagou.pojo.Configuration;
 import com.lagou.pojo.MappedStatement;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface Executor {
-    public <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, Object... params) throws Exception;
+    <E> List<E> query(Configuration configuration, MappedStatement mappedStatement, Object... params) throws Exception;
 
-    Boolean noQuery(Configuration configuration, MappedStatement mappedStatement, Object[] params) throws ClassNotFoundException, SQLException, NoSuchFieldException, IllegalAccessException;
+    Boolean noQuery(Configuration configuration, MappedStatement mappedStatement, Object[] params) throws Exception;
 }
