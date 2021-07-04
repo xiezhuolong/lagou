@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 一级缓存
+ */
 public class LoadClassCache {
     ClassLoader classLoader = this.getClass().getClassLoader();
     HashMap<String, Class> hashMap = new HashMap<>();

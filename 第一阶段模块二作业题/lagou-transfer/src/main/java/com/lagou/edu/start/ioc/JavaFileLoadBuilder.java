@@ -16,24 +16,32 @@ public class JavaFileLoadBuilder {
 
     ClassLoader classLoader = this.getClass().getClassLoader();
 
+    public JavaFileLoadBuilder() {
+        packagePath = System.getProperty("user.dir") + "\\src\\main\\java\\";
+    }
+
     public HashMap<String, Class> ScannerAllJavaFile(String basePackage) throws ClassNotFoundException {
         //拿到当前代码目录
-        packagePath = System.getProperty("user.dir") + "\\src\\main\\java\\";
         //如果有指定目录则拼接
-        if (!basePackage.isEmpty()) {
-            packagePath += basePackage.replace(".", "\\").replace("*", "");
+        if (basePackage.isEmpty()) {
+            basePackage = packagePath;
+        } else {
+            basePackage = packagePath + basePackage.replace(".", "\\").replace("*", "");
         }
-        GetMatchingFiles(packagePath, basePackage);
+        GetMatchingFiles(basePackage);
         return hashMap;
     }
 
-    private void GetMatchingFiles(String packagePath, String basePackage) throws ClassNotFoundException {
+    private void GetMatchingFiles(String packagePath) throws ClassNotFoundException {
         File[] files = new File(packagePath).listFiles();
         for (File file : files) {
             if (file.isFile() && file.getName().endsWith(".java")) {
                 //这里可以修改成允许自定义Bean名称，默认类名。如果使用的是注解，删除当前类名，放入自定义类名
                 String className = file.getName().substring(0, file.getName().length() - 5);
+                //如果 basePackage 不等于空，下面这行会不会有问题？
+                //会有，已修复
                 String referenceName = file.getPath().substring(this.packagePath.length(), file.getPath().length() - 5).replace("\\", ".");
+                ClassLoader.getPlatformClassLoader().getParent();
                 System.out.println(className);
                 hashMap.put(className, classLoader.loadClass(referenceName));
                 Annotation[] declaredAnnotations = hashMap.get(className).getDeclaredAnnotations();
@@ -57,7 +65,7 @@ public class JavaFileLoadBuilder {
                     hashMap.remove(className);
                 }
             } else if (file.isDirectory()) {
-                GetMatchingFiles(file.getPath(), basePackage);
+                GetMatchingFiles(file.getPath());
             }
         }
 

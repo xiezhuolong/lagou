@@ -54,23 +54,31 @@ public class BeanFactory {
         Constructor constructor = GetInitConstructor(value);
         //2.通过构造函数初始化类，并存入二级缓存
         Object o = InitClassByConstructor(constructor);
-        beansInCreation.remove(key);
-        initializedClassCache.put(key, value);
-        loadClassCache.remove(key);
-        //3.对初始化完成的类进行属性注入（注入过程中如果有依赖，将依赖注入完成后的属性类存入二级缓存）
-        fieldWire.FieldAutowired(o);
-        methodWired.MethodAutowired(o);
-        beanCache.put(key, o);
-        initializedClassCache.remove(key);
-        //4.返回注入完成的类
+        //3.检查该Bean是否有AOP和Transaction注解，有的话要先产生代理类，并将最终代理类存入二级缓存 initializedClassCache
 
+        //1.顺序问题，按自己想的来把Transaction放在最里层
+        //2.如何解决事务的有责加入，没有则创建问题
+        //这个就是针对Connection来处理的拿到连接设置自动提交为False就行了，另一种是新拿一个连接处理
+        //本系统只支持一个线程一个连接
         // AOP-Transaction处理
         // 1.AOP支持用户注入（定义一个变量
         // 1.判断该类上是否有@Transactional注解（可以定义一个变量存储需要进行AOP处理的注解，以及这些注解需要AOP种的什么操作）
+        // AOP就是使用目录匹配，先扫描AOP配置文件限定那些目录下的需要代理，然后循环创建类的时候判断该类是否在这个目录下，如果是则按照AOP的代理顺序进行代理即可
         HashMap<String, HashSet<String>> stringHashSetHashMap = new HashMap<>();
         AOPProcessing aopProcessing = new AOPProcessing(stringHashSetHashMap);
         HashSet<String> hashSet = new HashSet<>();
         ArrayList<String> arrayList = aopProcessing.GetTopClassContainTransactionAnnotation(o.getClass(), hashSet);
+
+        beansInCreation.remove(key);
+        initializedClassCache.put(key, value);
+        loadClassCache.remove(key);
+        //4.对初始化完成的类进行属性注入（注入过程中如果有依赖，将依赖注入完成后的属性类存入二级缓存）
+        fieldWire.FieldAutowired(o);
+        methodWired.MethodAutowired(o);
+        beanCache.put(key, o);
+        initializedClassCache.remove(key);
+
+        //5.返回注入完成的类
         return o;
     }
 

@@ -2,6 +2,9 @@ package com.lagou.edu.start.pojo;
 
 import java.util.HashMap;
 
+/**
+ * 二级缓存
+ */
 public class InitializedClassCache {
     HashMap<String, Object> hashMap = new HashMap<>();
 
