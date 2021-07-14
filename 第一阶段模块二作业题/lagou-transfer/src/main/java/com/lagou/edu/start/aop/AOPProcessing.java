@@ -8,40 +8,40 @@ import java.util.HashSet;
 
 public class AOPProcessing {
 
-    HashMap<String, HashSet<String>> hashMap;
+    Object originalBean;
 
-    public HashMap<String, HashSet<String>> getHashMap() {
-        return hashMap;
+    public AOPProcessing(Object originalBean) {
+        this.originalBean = originalBean;
     }
 
-    public AOPProcessing(HashMap<String, HashSet<String>> hashMap) {
-        this.hashMap = hashMap;
+    public Object Processing() {
+
+        //需要两种做法：1.Transactional需要递归向上查找
+        Object newBean = GetTopClassContainTransactionAnnotation(originalBean.getClass());
+        //2.AOP需要路径判断
+
+
+        return new Object();
     }
 
-    public ArrayList<String> GetTopClassContainTransactionAnnotation(Class c, HashSet<String> bottomHashSet) {
-        Object clone = bottomHashSet.clone();
-        HashSet<String> hashSet = bottomHashSet;
-        boolean b = bottomHashSet.addAll(bottomHashSet);
-        hashSet.add(c.getName());
+    public Object GetTopClassContainTransactionAnnotation(Class c) {
         if (c.getAnnotation(Transactional.class) != null) {
-            if (hashMap.containsKey(c.getName())) {
-                hashMap.get(c.getName());
-            }
-            hashMap.put(c.getName(), hashSet);
+            //找到对应注解，直接代理对象并返回
+            return null;
         }
         Class[] interfaces = c.getInterfaces();
         if (interfaces.length != 0) {
             for (Class anInterface : interfaces) {
-                GetTopClassContainTransactionAnnotation(anInterface, hashSet);
+                GetTopClassContainTransactionAnnotation(anInterface);
             }
         }
         Class superclass = c.getSuperclass();
         if (superclass != null) {
-            GetTopClassContainTransactionAnnotation(superclass, hashSet);
+            GetTopClassContainTransactionAnnotation(superclass);
         }
-        return null;
+        //没有找到对象，直接返回原对象。
+        return originalBean;
     }
-
 
 
 }

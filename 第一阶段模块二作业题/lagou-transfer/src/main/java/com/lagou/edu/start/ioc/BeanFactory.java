@@ -65,9 +65,9 @@ public class BeanFactory {
         // 1.判断该类上是否有@Transactional注解（可以定义一个变量存储需要进行AOP处理的注解，以及这些注解需要AOP种的什么操作）
         // AOP就是使用目录匹配，先扫描AOP配置文件限定那些目录下的需要代理，然后循环创建类的时候判断该类是否在这个目录下，如果是则按照AOP的代理顺序进行代理即可
         HashMap<String, HashSet<String>> stringHashSetHashMap = new HashMap<>();
-        AOPProcessing aopProcessing = new AOPProcessing(stringHashSetHashMap);
+        AOPProcessing aopProcessing = new AOPProcessing(o);
         HashSet<String> hashSet = new HashSet<>();
-        ArrayList<String> arrayList = aopProcessing.GetTopClassContainTransactionAnnotation(o.getClass(), hashSet);
+        //ArrayList<String> arrayList = aopProcessing.GetTopClassContainTransactionAnnotation(o.getClass(), hashSet);
 
         beansInCreation.remove(key);
         initializedClassCache.put(key, value);
