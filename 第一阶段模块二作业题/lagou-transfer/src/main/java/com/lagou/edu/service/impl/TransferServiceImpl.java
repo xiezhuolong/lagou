@@ -1,8 +1,8 @@
 package com.lagou.edu.service.impl;
 
-import com.lagou.edu.annotation.Transactional;
-import com.lagou.edu.annotation.ioc.Autowired;
-import com.lagou.edu.annotation.ioc.Service;
+import com.lagou.edu.frame.annotation.Transactional;
+import com.lagou.edu.frame.annotation.ioc.Autowired;
+import com.lagou.edu.frame.annotation.ioc.Service;
 import com.lagou.edu.dao.AccountDao;
 import com.lagou.edu.pojo.Account;
 import com.lagou.edu.service.TransferService;

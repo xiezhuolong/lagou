@@ -8,8 +8,9 @@
     <context-param>
         <param-name>IoC_Bean_Range</param-name>
         <param-value></param-value>
+        <!--<param-value>com.lagou.edu.*</param-value>-->
     </context-param>
     <listener>
-        <listener-class>com.lagou.edu.start.WebContextListener</listener-class>
+        <listener-class>com.lagou.edu.frame.start.WebContextListener</listener-class>
     </listener>
 </web-app>

@@ -1,6 +1,6 @@
 package com.lagou.edu.utils;
 
-import com.lagou.edu.annotation.ioc.Autowired;
+import com.lagou.edu.frame.annotation.ioc.Autowired;
 
 import java.sql.SQLException;
 
