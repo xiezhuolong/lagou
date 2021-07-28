@@ -1,4 +1,4 @@
-package com.lagou.edu.frame.start;
+package com.lagou.edu.config;
 
 import com.lagou.edu.frame.annotation.aop.*;
 

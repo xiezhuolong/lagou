@@ -46,6 +46,7 @@ public class JavaFileLoadBuilder {
                 hashMap.put(className, classLoader.loadClass(referenceName));
                 Annotation[] declaredAnnotations = hashMap.get(className).getDeclaredAnnotations();
                 Annotation[] annotations = hashMap.get(className).getAnnotations();
+                //需要在做AOP路径判断整合以路径为KEY，AOP类型为VALUE
                 /*CrosscuttingLogic crosscuttingLogic = (CrosscuttingLogic) hashMap.get(className).getDeclaredAnnotation(CrosscuttingLogic.class);
                 if (crosscuttingLogic != null) {
                     if (crosscuttingLogic.value() != "") {
