@@ -1,9 +1,11 @@
 package com.lagou.edu.frame.start.ioc;
 
+import com.lagou.edu.frame.annotation.aop.CrosscuttingLogic;
 import com.lagou.edu.frame.annotation.ioc.Service;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -12,15 +14,21 @@ public class JavaFileLoadBuilder {
 
     //LoadClassCache loadClassCache = LoadClassCache.getInstance();
     HashMap<String, Class> hashMap = new HashMap<>();
-    HashMap<String, Class> AOPHashMap = new HashMap<>();
+    //增强分为5类、环绕、前置、后置、后置返回或后置异常，但每类多少个还不知道，数据格式需要再设计一下，可以参考IdentityHashMap
+    HashMap<String, ArrayList<String>> AOPHashMap = new HashMap<>(5);
 
     ClassLoader classLoader = this.getClass().getClassLoader();
 
     public JavaFileLoadBuilder() {
         packagePath = System.getProperty("user.dir") + "\\src\\main\\java\\";
+        AOPHashMap.put("myAround", new ArrayList<>());
+        AOPHashMap.put("myBefore", new ArrayList<>());
+        AOPHashMap.put("myAfter", new ArrayList<>());
+        AOPHashMap.put("myAfterReturning", new ArrayList<>());
+        AOPHashMap.put("myAfterThrowing", new ArrayList<>());
     }
 
-    public HashMap<String, Class> ScannerAllJavaFile(String basePackage) throws ClassNotFoundException {
+    public HashMap<String, Class> ScannerAllJavaFile(String basePackage) throws Exception {
         //拿到当前代码目录
         //如果有指定目录则拼接
         if (basePackage.isEmpty()) {
@@ -32,7 +40,7 @@ public class JavaFileLoadBuilder {
         return hashMap;
     }
 
-    private void GetMatchingFiles(String packagePath) throws ClassNotFoundException {
+    private void GetMatchingFiles(String packagePath) throws Exception {
         File[] files = new File(packagePath).listFiles();
         for (File file : files) {
             if (file.isFile() && file.getName().endsWith(".java")) {
@@ -47,21 +55,14 @@ public class JavaFileLoadBuilder {
                 Annotation[] declaredAnnotations = hashMap.get(className).getDeclaredAnnotations();
                 Annotation[] annotations = hashMap.get(className).getAnnotations();
                 //需要在做AOP路径判断整合以路径为KEY，AOP类型为VALUE
-                /*CrosscuttingLogic crosscuttingLogic = (CrosscuttingLogic) hashMap.get(className).getDeclaredAnnotation(CrosscuttingLogic.class);
+                CrosscuttingLogic crosscuttingLogic = (CrosscuttingLogic) hashMap.get(className).getDeclaredAnnotation(CrosscuttingLogic.class);
                 if (crosscuttingLogic != null) {
-                    if (crosscuttingLogic.value() != "") {
-                        try {
-                            Class<?> aClass = classLoader.loadClass(crosscuttingLogic.value());
-                        } catch (Exception e) {
-                            throw new Exception("请在" + className + "上输入正确的横切逻辑BinaryName");
-                        }
-                    } else {
-                        throw new Exception("横切逻辑类不能为空");
-                    }
+                    //取类里面所有增强注解与对应pointCut加入AOPHashMap中
+
                 }
                 if (hashMap.get(className).isAnnotationPresent(CrosscuttingLogic.class)) {
-                    AOPHashMap.put(className)
-                }*/
+                    AOPHashMap.put(className, this.getClass());
+                }
                 if (!hashMap.get(className).isAnnotationPresent(Service.class)/*这里可以增加判断条件，或直接使用switch语句处理，默认条件移除*/) {
                     hashMap.remove(className);
                 }
