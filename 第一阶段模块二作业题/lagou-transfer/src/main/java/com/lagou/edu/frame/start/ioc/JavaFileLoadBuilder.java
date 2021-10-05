@@ -5,8 +5,10 @@ import com.lagou.edu.frame.annotation.ioc.Service;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class JavaFileLoadBuilder {
@@ -15,7 +17,7 @@ public class JavaFileLoadBuilder {
     //LoadClassCache loadClassCache = LoadClassCache.getInstance();
     HashMap<String, Class> hashMap = new HashMap<>();
     //增强分为5类、环绕、前置、后置、后置返回或后置异常，但每类多少个还不知道，数据格式需要再设计一下，可以参考IdentityHashMap
-    HashMap<String, ArrayList<String>> AOPHashMap = new HashMap<>(5);
+    HashMap<String, List<HashMap<Method, String>>> AOPHashMap = new HashMap<>(5);
 
     ClassLoader classLoader = this.getClass().getClassLoader();
 
